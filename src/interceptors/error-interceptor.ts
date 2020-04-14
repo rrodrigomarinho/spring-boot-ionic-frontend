@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { StorageService } from '../services/storage.service';
-//import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 //import { FieldMessage } from '../models/fieldmessage';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-     constructor(public storage: StorageService/*, public alertCtrl: AlertController*/) {
+     constructor(public storage: StorageService, public alertCtrl: AlertController) {
     } 
 
 
@@ -28,20 +28,22 @@ export class ErrorInterceptor implements HttpInterceptor {
             console.log(errorObj);
 
              switch(errorObj.status) {
-                case 403:
-                this.handle403();
-                break;
-                /*
                 case 401:
                 this.handle401();
                 break;
 
-                case 422:
-                this.handle422(errorObj);
+                case 403:
+                this.handle403();
                 break;
 
                 default:
                 this.handleDefaultEror(errorObj);
+
+               /*
+                case 422:
+                this.handle422(errorObj);
+                break;
+
                 */
             }
 
@@ -49,13 +51,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         }) as any;
     }
 
-    handle403() {
-        this.storage.setLocalUser(null);
-    }
-/*
     handle401() {
         let alert = this.alertCtrl.create({
-            title: 'Erro 401: falha de autenticação',
+            title: 'Erro 401: Falha de autenticação',
             message: 'Email ou senha incorretos',
             enableBackdropDismiss: false,
             buttons: [
@@ -67,18 +65,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         alert.present();
     }
 
-    handle422(errorObj) {
-        let alert = this.alertCtrl.create({
-            title: 'Erro 422: Validação',
-            message: this.listErrors(errorObj.errors),
-            enableBackdropDismiss: false,
-            buttons: [
-                {
-                    text: 'Ok'
-                }
-            ]
-        });
-        alert.present();
+    handle403() {
+        this.storage.setLocalUser(null);
     }
 
     handleDefaultEror(errorObj) {
@@ -94,6 +82,21 @@ export class ErrorInterceptor implements HttpInterceptor {
         });
         alert.present();        
     }
+/*
+    handle422(errorObj) {
+        let alert = this.alertCtrl.create({
+            title: 'Erro 422: Validação',
+            message: this.listErrors(errorObj.errors),
+            enableBackdropDismiss: false,
+            buttons: [
+                {
+                    text: 'Ok'
+                }
+            ]
+        });
+        alert.present();
+    }
+
 
     private listErrors(messages : FieldMessage[]) : string {
         let s : string = '';
