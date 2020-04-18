@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { API_CONFIG } from "../../config/api.config";
-import { ProdudoDTO } from '../../models/produtos.dto';
+import { ProdutoDTO } from '../../models/produtos.dto';
 
 @Injectable()
 export class ProdutoService {
@@ -11,7 +11,7 @@ export class ProdutoService {
   }
 
   findByid(produto_id : string) {
-    return this.http.get<ProdudoDTO>(`${API_CONFIG.baseUrl}/produtos/${produto_id}`);
+    return this.http.get<ProdutoDTO>(`${API_CONFIG.baseUrl}/produtos/${produto_id}`);
   }
 
   findByCategoria(categoria_id : string) {
