@@ -1,3 +1,4 @@
+import { ImageUtilService } from './../services/image-util.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -40,7 +41,8 @@ import { CartService } from '../services/domain/cart.service';
     StorageService,
     ClienteService,
     ProdutoService,
-    CartService
+    CartService,
+    ImageUtilService
   ]
 })
 export class AppModule {}
